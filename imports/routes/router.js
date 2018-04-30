@@ -1,8 +1,24 @@
 import React, {Component} from 'react'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route
+} from 'react-router-dom'
+import LandingPage from '/imports/pages/LandingPage'
+import AssociationPage from '/imports/pages/AssociationPage'
 
 export default class App extends Component{
 
     render(){
-        return <p> JE FONCTIONNE ! </p>
+        return (
+            <div>
+                <Router>
+                    <Switch>
+                        <Route exact path="/" component={LandingPage} />
+                        <Route path="/asso" component={AssociationPage} />
+                    </Switch>
+                </Router>
+            </div>
+        )
     }
 }
