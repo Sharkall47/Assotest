@@ -15,7 +15,7 @@ export default class App extends Component{
                 <Router>
                     <Switch>
                         <Route exact path="/" component={LandingPage} />
-                        <Route path="/asso" component={AssociationPage} />
+                        <Route path="/asso/:name" component={AssociationPage} />
                     </Switch>
                 </Router>
             </div>
