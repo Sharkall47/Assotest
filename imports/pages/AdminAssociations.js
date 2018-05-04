@@ -6,6 +6,12 @@ export default class AdminAssociations extends Component {
         association: {}
     }
 
+    handleAssoChange = (e) => {
+        const {association} = this.state
+        association[e.target.name]=[e.target.value]
+        this.setState({association})
+    }
+
     render(){
         const {association} = this.state
         return(
