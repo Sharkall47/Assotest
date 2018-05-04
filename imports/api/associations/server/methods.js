@@ -3,11 +3,7 @@ import {Associations} from '../associations'
 
 Meteor.methods({
 'associations.insert'(association){
-    if(!this.userId){
-        throw new Meteor.Error('403', 'Vous devez vous connecter')
-    }else{
     Associations.insert(association)
-    }
 },
 'associations.update'(association){
     if(!this.userId){
