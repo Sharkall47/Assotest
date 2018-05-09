@@ -14,10 +14,6 @@ Meteor.methods({
     }
 },
 'associations.remove'(association_id){
-    if(!this.userId){
-        throw new Meteor.Error('403', 'Vous devez vous connecter')
-    }else{
         Associations.remove({_id: association_id})
-    }
 }
 })

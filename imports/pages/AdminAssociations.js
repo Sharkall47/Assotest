@@ -79,14 +79,14 @@ export class AdminAssociations extends Component {
                         </Container>
                     </Grid.Column>
                     {associations.length > 0 && 
-                        <Grid.Column width={16}>
-
-                            {associations.map( (x) => {
-                                return <AdminCard une_association={x} />  
-                                }
-                            )}
-                        </Grid.Column>
-                    }
+                        <Container>
+                        <Grid>
+                        {associations.map( (x) => {
+                            return <AdminCard une_association={x} />
+                        })}
+                        </Grid>
+                        </Container>
+                }
                 </Grid>
             )
 
