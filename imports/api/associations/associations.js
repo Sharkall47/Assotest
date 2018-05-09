@@ -13,7 +13,17 @@ const AssociationsSchema = new SimpleSchema({
     image_url: {
         type: String,
         optional: true
-    }
+    },
+    join_date: {
+        type: Date,
+        optional: true
+    },
+    updated_at: {
+        type: Date,
+        autoValue: () => {
+            return new Date()
+        }
+    },
 })
 
 Associations.attachSchema(AssociationsSchema);

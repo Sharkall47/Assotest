@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { Grid, Button, Form, Container, Header, Image } from 'semantic-ui-react'
 import { withTracker } from 'meteor/react-meteor-data'
 import {Associations} from '/imports/api/associations/associations'
+import AdminCard from '/imports/components/AdminCard'
 
 export class AdminAssociations extends Component {
     state = {
@@ -35,6 +36,7 @@ export class AdminAssociations extends Component {
     render(){
         const {association, form_message, image_link} = this.state
         const {loading, associations} = this.props
+        const join_date = new Date()
         if (!loading) {
             return(
                 <Grid stackable>
@@ -73,14 +75,16 @@ export class AdminAssociations extends Component {
                             <p>{JSON.stringify(image_link)}</p>
                             <Image size='small' src={association.image_url}/>
                             <Image size='small' src={image_link}/>
-    
+                            
                         </Container>
                     </Grid.Column>
                     {associations.length > 0 && 
                         <Grid.Column width={16}>
-                            {associations.map( association => {
-                                return <p>{association.name}</p>
-                            })}
+
+                            {associations.map( (x) => {
+                                return <AdminCard une_association={x} />  
+                                }
+                            )}
                         </Grid.Column>
                     }
                 </Grid>

@@ -3,6 +3,7 @@ import {Associations} from '../associations'
 
 Meteor.methods({
 'associations.insert'(association){
+    association.join_date = new Date()
     Associations.insert(association)
 },
 'associations.update'(association){
