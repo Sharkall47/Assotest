@@ -14,8 +14,12 @@ export default class AdminCard extends Component {
         // alert('DELETE - '+ une_association._id)
     }
 
+    edit_association = () => {
+        this.props.onEditClick(this.props.une_association)
+    }
+
     render(){
-        const {une_association, asso_to_trash} = this.props
+        const {une_association} = this.props
         return(
                 <Grid.Column width={4}>
                         <p> voici : {une_association.name} </p>
@@ -43,6 +47,12 @@ export default class AdminCard extends Component {
                             <Button.Content hidden>DO IT !</Button.Content>
                             <Button.Content visible>
                                 <Icon name='trash alternate' /> Supprimer
+                            </Button.Content>
+                        </Button>
+                        <Button animated='vertical' onClick={this.edit_association}>
+                            <Button.Content hidden>YEAH MTF</Button.Content>
+                            <Button.Content visible>
+                                <Icon name='edit alternate' /> Editer
                             </Button.Content>
                         </Button>
                             </Card.Content>

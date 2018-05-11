@@ -8,8 +8,14 @@ import AssociationForm from '/imports/components/AssociationForm'
 export class AdminAssociations extends Component {
     state = {}
 
+    edit_association = (asso) => {
+        this.setState({editing_association: asso})
+    }
+
+    reset_editing = () => this.setState({editing_association: null})
+
     render(){
-        const {association, form_message, image_link} = this.state
+        const {association, form_message, image_link, editing_association} = this.state
         const {loading, prop_associations} = this.props
         if (!loading) {
             return(
@@ -17,14 +23,14 @@ export class AdminAssociations extends Component {
                     <Grid.Column width={16}>
                         <Container>
                             <Header as='h3'>Gestion des associations</Header>
-                            <AssociationForm/>
+                            <AssociationForm edit_asso={editing_association} onSubmitForm={this.reset_editing} />
                         </Container>
                     </Grid.Column>
                     {prop_associations.length > 0 && 
                         <Container>
                         <Grid>
                         {prop_associations.map( (x) => {
-                            return <AdminCard une_association={x} />
+                            return <AdminCard une_association={x} onEditClick={this.edit_association} />
                         })}
                         </Grid>
                         </Container>
