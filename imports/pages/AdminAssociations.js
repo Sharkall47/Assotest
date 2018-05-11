@@ -10,11 +10,6 @@ export class AdminAssociations extends Component {
     }
 
 
-
-
-
-
-
     render(){
         const {association, form_message, image_link} = this.state
         const {loading, prop_associations} = this.props

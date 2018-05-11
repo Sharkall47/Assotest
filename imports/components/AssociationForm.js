@@ -6,6 +6,14 @@ export default class AssociationForm extends Component {
         association: {},
     }
 
+    reset_association = () => {
+        const reset_association = {}
+        Object.keys(this.state.association).map(attr => {
+            reset_association[attr] = ""
+        })
+        this.setState({association: reset_association})
+    }
+
     handleAssoChange = (e) => {
         const {association} = this.state
         association[e.target.name] = e.target.value
@@ -22,7 +30,7 @@ export default class AssociationForm extends Component {
                 this.setState({form_message: "Erreur de creation"})
             }else {
                 console.log('ASSOCIATION CREEE YAII !!')
-                this.setState({form_message: "Association creée"})
+                this.reset_association()
             }
         } )
     }
