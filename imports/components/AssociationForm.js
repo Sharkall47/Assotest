@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
-import { Grid, Form, Header, Image } from 'semantic-ui-react'
+import { Form, Button } from 'semantic-ui-react'
 
 export default class FormEdit extends Component {
     state = {
-        
+        association: {}
     }
 
     handleAssoChange = (e) => {
@@ -11,12 +11,26 @@ export default class FormEdit extends Component {
         association[e.target.name] = e.target.value
         this.setState({association})
     }
-
+    
     handleChange = (e) => this.setState({[e.target.name]: e.target.value})
 
+    submit_form = (e) => {
+        e.preventDefault()
+        Meteor.call('associations.insert', this.state.association, (error, result) => {
+            if (error) {
+                console.log('ERREUR DE CALL ASSOCIATION INSERT', error.message)
+                this.setState({form_message: "Erreur de creation"})
+            }else {
+                console.log('ASSOCIATION CREEE YAII !!')
+                this.setState({form_message: "Association creée"})
+            }
+        } )
+    }
+
+
     render(){
+        const {association} = this.state
         return(
-            <Header as='h1'>Gestion des associations</Header>
             <Form onSubmit={this.submit_form}>
                 <Form.Input
                     label='Nom'
@@ -36,19 +50,8 @@ export default class FormEdit extends Component {
                     value={association.image_url}
                     name='image_url'
                     />
-                <Form.Input
-                    label="URL de l'image link"
-                    onChange={this.handleChange}
-                    value={image_link}
-                    name='image_link'
-                    />
                 <Button positive>Creer l'association </Button>
             </Form>
-            <p>{form_message}</p>
-            <p>{JSON.stringify(association)}</p>
-            <p>{JSON.stringify(image_link)}</p>
-            <Image size='small' src={association.image_url}/>
-            <Image size='small' src={image_link}/>
         )
     }
 }
