@@ -9,24 +9,29 @@ export class AdminAssociations extends Component {
     state = {
     }
 
+    editing = (une_association) => {
+        this.setState({editing_asso: une_association})
+    }
+
+    reset_editing = () => this.setState({editing_asso: null})
 
     render(){
-        const {association, form_message, image_link} = this.state
+        const {association, form_message, image_link, editing_asso} = this.state
         const {loading, prop_associations} = this.props
         if (!loading) {
             return(
                 <Grid stackable>
                     <Grid.Column width={16}>
                         <Container>
-                            <Header as='h1'>Gestion des associations</Header>
-                            <AssociationForm/>
+                            <Header as='h1'>Gestion des associations -- </Header>
+                            <AssociationForm edit_asso={editing_asso} onSubmitForm={this.reset_editing}/>
                         </Container>
                     </Grid.Column>
                     {prop_associations.length > 0 && 
                         <Container>
                         <Grid>
                         {prop_associations.map( (x) => {
-                            return <AdminCard une_association={x} />
+                            return <AdminCard une_association={x} onEdit_signal={this.editing}/>
                         })}
                         </Grid>
                         </Container>

@@ -6,6 +6,10 @@ export default class AssociationForm extends Component {
         association: {},
     }
 
+    componentWillReceiveProps(props){
+        props.edit_asso && this.setState({association: props.edit_asso})
+     }
+
     reset_association = () => {
         const reset_association = {}
         Object.keys(this.state.association).map(attr => {
@@ -24,16 +28,29 @@ export default class AssociationForm extends Component {
 
     submit_form = (e) => {
         e.preventDefault()
-        Meteor.call('associations.insert', this.state.association, (error, result) => {
+        if (this.props.edit_asso) {
+            Meteor.call('associations.update', this.state.association, (error, result) => {
+                if (error) {
+                    console.log('ERREUR DE CALL ASSOCIATION INSERT', error.message)
+                    this.setState({form_message: "Erreur de creation"})
+                }else {
+                    console.log('ASSOCIATION MODIFIE YAII !!')
+                    this.reset_association()
+                    this.props.onSubmitForm()
+                }
+            })}else {
+            Meteor.call('associations.insert', this.state.association, (error, result) => {
             if (error) {
-                console.log('ERREUR DE CALL ASSOCIATION INSERT', error.message)
-                this.setState({form_message: "Erreur de creation"})
-            }else {
-                console.log('ASSOCIATION CREEE YAII !!')
-                this.reset_association()
-            }
-        } )
+                    console.log('ERREUR DE CALL ASSOCIATION INSERT', error.message)
+                    this.setState({form_message: "Erreur de creation"})
+                }else {
+                    console.log('ASSOCIATION CREEE YAII !!')
+                    this.reset_association()
+                }
+            })}
     }
+
+
 
     render(){
         const {association} = this.state
@@ -58,7 +75,7 @@ export default class AssociationForm extends Component {
                     value={association.image_url}
                     name='image_url'
                     />
-                <Button positive>Creer l'association </Button>
+                <Button positive>{this.props.edit_asso ? "Editer" : "Creer"} </Button>
             </Form>
             // <Container>
             //     <p>{form_message}</p>

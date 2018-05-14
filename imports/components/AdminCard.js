@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { Grid, Card, Icon, Image, Container, Button } from 'semantic-ui-react'
 import moment from 'moment'
+import CustomStyle from '/client/styles/CustomStyle'
 
 export default class AdminCard extends Component {
     state = {
@@ -12,6 +13,10 @@ export default class AdminCard extends Component {
         const {une_association} = this.props
         Meteor.call('associations.remove', une_association._id)
         // alert('DELETE - '+ une_association._id)
+    }
+
+    edit_signal = () => {
+        this.props.onEdit_signal(this.props.une_association)
     }
 
     render(){
@@ -35,16 +40,26 @@ export default class AdminCard extends Component {
                             </Card.Description>
                             </Card.Content>
                             <Card.Content extra>
-                            <a>
-                                <Icon name='user' />
-                                22 Members
-                            </a>
-                        <Button negative animated='vertical' onClick={this.asso_to_trash}>
-                            <Button.Content hidden>DO IT !</Button.Content>
-                            <Button.Content visible>
-                                <Icon name='trash alternate' /> Supprimer
-                            </Button.Content>
-                        </Button>
+                                <a>
+                                    <Icon name='user' />
+                                    22 Members
+                                </a>
+                                <Grid>
+                                    <Grid.Column width={16}>
+                                        <Button negative animated='vertical' onClick={this.asso_to_trash} className='card_button'>
+                                            <Button.Content hidden>DO IT !</Button.Content>
+                                            <Button.Content visible>
+                                                <Icon name='trash alternate' /> Supprimer
+                                            </Button.Content>
+                                        </Button>
+                                        <Button animated='vertical' onClick={this.edit_signal} className='card_button'>
+                                            <Button.Content hidden>DO IT !</Button.Content>
+                                            <Button.Content visible>
+                                                <Icon name='trash alternate' /> Editer
+                                            </Button.Content>
+                                        </Button>
+                                    </Grid.Column>
+                                </Grid>
                             </Card.Content>
                         </Card>
                 </Grid.Column>
